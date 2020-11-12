@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 // Lustiger Kommentar
+// Das wird die Welt verändern
 public class Main {
 
     public static void main(String[] args) {
