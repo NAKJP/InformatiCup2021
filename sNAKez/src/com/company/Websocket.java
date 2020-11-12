@@ -64,8 +64,8 @@ public class Websocket {
      *
      * @author Jiji_Sasidharan
      */
-    public static interface MessageHandler {
-        public void handleMessage(String message);
+    public interface MessageHandler {
+        void handleMessage(String message);
     }
 }
 
