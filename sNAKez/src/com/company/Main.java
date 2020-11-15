@@ -16,7 +16,7 @@ public class Main extends JPanel {
         JFrame snakez = new JFrame();
 
         snakez.setSize(1000,1000);
-        snakez.setBackground(Color.white);
+        snakez.setTitle("sNAKez - connecting...");
 
         String apiKey = "4TB4RVHI6UZ4NQRIV4IDZYUERICKBWQMRMLSD5NVY756YYM5S3ZMJN2P";
         try {
@@ -26,22 +26,22 @@ public class Main extends JPanel {
             // add listener
             clientEndPoint.addMessageHandler(new Websocket.MessageHandler() {
                 public void handleMessage(String message) {
+                    snakez.setTitle("sNAKesz - connected");
                     System.out.println(message);
                     jobj = new Gson().fromJson(message, JsonObject.class);
+
                     Main output = new Main();
+                    output.setSize(output.getWidthFromJson(),output.getHeightFromJson());
                     snakez.add(output);
                     output.revalidate();
                     output.repaint();
-                    snakez.setVisible(true);
+                    clientEndPoint.sendMessage("{'action': 'change_nothing'}");
                 }
             });
 
-
-            clientEndPoint.sendMessage("{'action': 'change_nothing'}");
+            snakez.setVisible(true);
 
             Thread.sleep(301000);
-
-
 
         }catch (InterruptedException ex) {
             System.err.println("InterruptedException exception: " + ex.getMessage());
@@ -56,7 +56,7 @@ public class Main extends JPanel {
         int width = getWidthFromJson() * 10;
         int height = getHeightFromJson() * 10;
 
-        setSize(width,height);
+        setSize(width + 5,height + 5);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setStroke(new BasicStroke(10));
 
@@ -87,13 +87,9 @@ public class Main extends JPanel {
                         g2d.setColor(Color.white);
                         break;
                 }
-                g2d.draw(new Line2D.Float(i*10,j*10,i*10,j*10));
+                g2d.draw(new Line2D.Float((i*10)+5,(j*10)+5,(i*10)+5,(j*10)+5));
             }
         }
-    }
-
-    public void establishConnection(){
-
     }
 
     private int getWidthFromJson(){
@@ -107,8 +103,8 @@ public class Main extends JPanel {
     private int[][] getCellsFromString(){
         JsonArray jsonArray = jobj.get("cells").getAsJsonArray();
         int[][] cells = new int[getHeightFromJson()][getWidthFromJson()];
-        for ( int i = 0; i < getHeightFromJson(); i++) {
-            for(int j = 0; j < getHeightFromJson(); j++){
+        for ( int i = 0; i < getHeightFromJson() - 1; i++) {
+            for(int j = 0; j < getWidthFromJson() - 1; j++){
                 JsonArray jsonArrayCollumn = jsonArray.get(i).getAsJsonArray();
                 cells[i][j] = jsonArrayCollumn.get(j).getAsInt();
             }
