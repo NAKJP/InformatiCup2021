@@ -1,24 +1,23 @@
 package com.company;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Line2D;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class Main {
+public class Main extends JPanel {
 
-    private boolean firstAnswer = true;
+    public static JsonObject jobj;
 
     public static void main(String[] args) {
-        Main game = new Main();
-        game.establishConnection();
-    }
+        JFrame snakez = new JFrame();
 
-    public void establishConnection(){
+        snakez.setSize(1000,1000);
+        snakez.setBackground(Color.white);
+
         String apiKey = "4TB4RVHI6UZ4NQRIV4IDZYUERICKBWQMRMLSD5NVY756YYM5S3ZMJN2P";
         try {
             // open websocket
@@ -28,40 +27,93 @@ public class Main {
             clientEndPoint.addMessageHandler(new Websocket.MessageHandler() {
                 public void handleMessage(String message) {
                     System.out.println(message);
-                    JsonObject jobj = new Gson().fromJson(message, JsonObject.class);
-                    if(firstAnswer) {
-                        EventQueue.invokeLater(() -> {
-                            int width = (int) jobj.get("width").getAsDouble();
-                            int height = (int) jobj.get("height").getAsDouble();
-                            var output = new OutputWindow(width, height);
-                            output.setVisible(true);
-                        });
-                        firstAnswer = false;
-                    }
+                    jobj = new Gson().fromJson(message, JsonObject.class);
+                    Main output = new Main();
+                    snakez.add(output);
+                    output.revalidate();
+                    output.repaint();
+                    snakez.setVisible(true);
                 }
             });
+
 
             clientEndPoint.sendMessage("{'action': 'change_nothing'}");
 
             Thread.sleep(301000);
+
+
 
         }catch (InterruptedException ex) {
             System.err.println("InterruptedException exception: " + ex.getMessage());
         }catch (URISyntaxException ex) {
             System.err.println("URISyntaxException exception: " + ex.getMessage());
         }
+
+
     }
 
-    public double getWidth(String inputString){
-        JsonObject jsonObject = new JsonObject().getAsJsonObject(inputString);
-        double width = jsonObject.get("width").getAsDouble();
-        return width;
+    public void paint(Graphics g){
+        int width = getWidthFromJson() * 10;
+        int height = getHeightFromJson() * 10;
+
+        setSize(width,height);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setStroke(new BasicStroke(10));
+
+        int[][] cells = getCellsFromString();
+
+        for(int i = 0; i < getHeightFromJson() - 1; i++){
+            for(int j = 0; j < getWidthFromJson() - 1; j++){
+                switch(cells[i][j]){
+                    case 1:
+                        g2d.setColor(Color.red);
+                        break;
+                    case 2:
+                        g2d.setColor(Color.blue);
+                        break;
+                    case 3:
+                        g2d.setColor(Color.green);
+                        break;
+                    case 4:
+                        g2d.setColor(Color.yellow);
+                        break;
+                    case 5:
+                        g2d.setColor(Color.magenta);
+                        break;
+                    case 6:
+                        g2d.setColor(Color.pink);
+                        break;
+                    default:
+                        g2d.setColor(Color.white);
+                        break;
+                }
+                g2d.draw(new Line2D.Float(i*10,j*10,i*10,j*10));
+            }
+        }
     }
 
-    public double getHeight(String inputString){
-        JsonObject jsonObject = new JsonObject().getAsJsonObject(inputString);
-        double height = jsonObject.get("height").getAsDouble();
-        return height;
+    public void establishConnection(){
+
+    }
+
+    private int getWidthFromJson(){
+        return (int) jobj.get("width").getAsDouble();
+    }
+
+    private int getHeightFromJson(){
+        return (int) jobj.get("height").getAsDouble();
+    }
+
+    private int[][] getCellsFromString(){
+        JsonArray jsonArray = jobj.get("cells").getAsJsonArray();
+        int[][] cells = new int[getHeightFromJson()][getWidthFromJson()];
+        for ( int i = 0; i < getHeightFromJson(); i++) {
+            for(int j = 0; j < getHeightFromJson(); j++){
+                JsonArray jsonArrayCollumn = jsonArray.get(i).getAsJsonArray();
+                cells[i][j] = jsonArrayCollumn.get(j).getAsInt();
+            }
+        }
+        return cells;
     }
 
 }
