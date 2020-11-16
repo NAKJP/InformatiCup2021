@@ -27,6 +27,7 @@ public class Main extends JPanel {
             clientEndPoint.addMessageHandler(new Websocket.MessageHandler() {
                 public void handleMessage(String message) {
                     snakez.setTitle("sNAKesz - connected");
+                    clientEndPoint.sendMessage("{'action': 'turn_right'}");
                     System.out.println(message);
                     jobj = new Gson().fromJson(message, JsonObject.class);
 
@@ -35,7 +36,7 @@ public class Main extends JPanel {
                     snakez.add(output);
                     output.revalidate();
                     output.repaint();
-                    clientEndPoint.sendMessage("{'action': 'change_nothing'}");
+
                 }
             });
 
