@@ -13,27 +13,34 @@ public class Main extends JPanel {
     public static JsonObject jobj;
 
     public static void main(String[] args) {
+        //erstelle Ausgabefenster
         JFrame snakez = new JFrame();
 
         snakez.setSize(1000,1000);
         snakez.setTitle("sNAKez - connecting...");
 
+        String url = "wss://msoll.de/spe_ed?key=";
         String apiKey = "4TB4RVHI6UZ4NQRIV4IDZYUERICKBWQMRMLSD5NVY756YYM5S3ZMJN2P";
         try {
-            // open websocket
-            final Websocket clientEndPoint = new Websocket(new URI("wss://msoll.de/spe_ed?key="+apiKey));
+            // öffne den Websocket
+            final Websocket clientEndPoint = new Websocket(new URI(url + apiKey));
 
-            // add listener
+            // verarbeite Servernachrichten
             clientEndPoint.addMessageHandler(new Websocket.MessageHandler() {
                 public void handleMessage(String message) {
                     snakez.setTitle("sNAKesz - connected");
                     clientEndPoint.sendMessage("{'action': 'turn_right'}");
                     System.out.println(message);
+
+                    //erstelle fülle das JSonObject mit der Nachricht vom Server
                     jobj = new Gson().fromJson(message, JsonObject.class);
 
+                    //Erstelle Panel auf dem gemalt wird
                     Main output = new Main();
                     output.setSize(output.getWidthFromJson(),output.getHeightFromJson());
+                    //füge das Panel dem Ausgabefenster hinzu
                     snakez.add(output);
+                    //erneuere das Bild auf dem Panel
                     output.revalidate();
                     output.repaint();
 
@@ -42,6 +49,7 @@ public class Main extends JPanel {
 
             snakez.setVisible(true);
 
+            //warte auf Antwort 5 Minuten + Pingsicherheit
             Thread.sleep(301000);
 
         }catch (InterruptedException ex) {
@@ -53,6 +61,7 @@ public class Main extends JPanel {
 
     }
 
+    //Funktion zum Bemalen des Panels
     public void paint(Graphics g){
         int width = getWidthFromJson() * 10;
         int height = getHeightFromJson() * 10;
@@ -93,14 +102,17 @@ public class Main extends JPanel {
         }
     }
 
+    //Funktion zum extrahieren der Breite des Spielfeldes aus der JSon
     private int getWidthFromJson(){
         return (int) jobj.get("width").getAsDouble();
     }
 
+    //Funktion zum extrahieren der Höhe des Spielfeldes aus der JSon
     private int getHeightFromJson(){
         return (int) jobj.get("height").getAsDouble();
     }
 
+    //Funktion zum extrahieren des Spielfeldes aus der JSon
     private int[][] getCellsFromString(){
         JsonArray jsonArray = jobj.get("cells").getAsJsonArray();
         int[][] cells = new int[getHeightFromJson()][getWidthFromJson()];
