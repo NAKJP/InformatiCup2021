@@ -18,6 +18,7 @@ public class Main extends JPanel {
 
         snakez.setSize(1000,1000);
         snakez.setTitle("sNAKez - connecting...");
+        snakez.setVisible(true);
 
         String url = "wss://msoll.de/spe_ed?key=";
         String apiKey = "4TB4RVHI6UZ4NQRIV4IDZYUERICKBWQMRMLSD5NVY756YYM5S3ZMJN2P";
@@ -29,7 +30,7 @@ public class Main extends JPanel {
             clientEndPoint.addMessageHandler(new Websocket.MessageHandler() {
                 public void handleMessage(String message) {
                     snakez.setTitle("sNAKesz - connected");
-                    clientEndPoint.sendMessage("{'action': 'turn_right'}");
+                    clientEndPoint.sendMessage("{\"action\": \"change_nothing\"}");
                     System.out.println(message);
 
                     //erstelle fülle das JSonObject mit der Nachricht vom Server
@@ -43,11 +44,8 @@ public class Main extends JPanel {
                     //erneuere das Bild auf dem Panel
                     output.revalidate();
                     output.repaint();
-
                 }
             });
-
-            snakez.setVisible(true);
 
             //warte auf Antwort 5 Minuten + Pingsicherheit
             Thread.sleep(301000);
@@ -61,7 +59,7 @@ public class Main extends JPanel {
 
     }
 
-    //Funktion zum Bemalen des Panels
+    //Funktion zum Bemalen des Panels wird aus dem Konstruktor des JPanels aufgerufen
     public void paint(Graphics g){
         int width = getWidthFromJson() * 10;
         int height = getHeightFromJson() * 10;
