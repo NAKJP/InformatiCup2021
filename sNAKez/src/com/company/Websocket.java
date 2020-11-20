@@ -1,5 +1,7 @@
 package com.company;
 
+import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.net.URI;
 import java.text.SimpleDateFormat;
@@ -13,6 +15,7 @@ public class Websocket{
     private MessageHandler messageHandler;
     private Log logger = new Log();
     private ClientMessage clientMessage ;
+    private ServerMessage serverMessage ;
     private String time = new SimpleDateFormat("dd.MM.yyyy.HH.mm.ss").format(new java.util.Date());
 
     public Websocket (URI endpointURI){
@@ -52,6 +55,7 @@ public class Websocket{
 
     @OnMessage
     public void onMessage(String message) {
+        serverMessage = new Gson().fromJson(message, ServerMessage.class);
         if (this.messageHandler != null) {
             logger.writeLog(message);
             sendMessage("{\"action\": \"change_nothing\"}");
