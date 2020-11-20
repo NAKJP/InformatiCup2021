@@ -1,8 +1,5 @@
 package com.company;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -15,13 +12,6 @@ public class Connector {
         try {
             // öffne den Websocket
             final Websocket clientEndPoint = new Websocket(new URI(url + apiKey));
-
-            // verarbeite Servernachrichten
-            clientEndPoint.addMessageHandler(new Websocket.MessageHandler() {
-                public void handleMessage(String message) {
-                    clientEndPoint.sendMessage("{\"action\": \"change_nothing\"}");
-                }
-            });
 
             //warte auf Antwort 5 Minuten + Pingsicherheit
             Thread.sleep(301000);
