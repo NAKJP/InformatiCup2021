@@ -16,6 +16,7 @@ public class Websocket{
     private ClientMessage clientMessage = new ClientMessage();
     private Log logger = new Log();
     private ServerMessage serverMessage ;
+    private Me myPlayer;
     private String time = new SimpleDateFormat("dd.MM.yyyy HH.mm.ss").format(new java.util.Date());
 
     public Websocket (URI endpointURI){
@@ -43,12 +44,13 @@ public class Websocket{
 
     @OnClose
     public void onClose(Session userSession, CloseReason reason) {
-        logger.connectionLog("closing websocket");
         try {
+            logger.connectionLog("closing websocket");
             this.userSession = userSession;
             this.userSession.close();
         }
         catch (IOException e){
+            logger.connectionLog("FAILED");
             throw new RuntimeException(e);
         }
     }
@@ -57,23 +59,46 @@ public class Websocket{
     public void onMessage(String message) {
         if (this.messageHandler != null) {
             serverMessage = new Gson().fromJson(message, ServerMessage.class);
+            myPlayer = new Me(getMe());
 
             logger.writeLog(message);
             output.outputGame(message);
             System.out.println("Your Playernumber: "+ serverMessage.getYou());
 
-            sendMessage();
-            if(!output.isActive(message)){
-                onClose(userSession, new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "Player died"));
+            if(getMe().getActive()){
+                sendMessage();
             }
+            else {
+                logger.connectionLog("You already died");
+            }
+            /*if(!output.isActive(message)){
+                logger.connectionLog("Player died");
+                onClose(userSession, new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "Player died"));
+            }*/
         }
     }
 
     public void sendMessage() {
-        String response = clientMessage.randomResponse();
+        String response = clientMessage.randomResponse(serverMessage.getCells(), myPlayer);
         System.out.println(response);
         String clientMsg = "{\"action\": \""+response+"\"}";
         this.userSession.getAsyncRemote().sendObject(clientMsg);
+    }
+
+    public ServerMessage.Players.Player getMe(){
+        int me = serverMessage.getYou();
+        switch(me){
+            case 1: return serverMessage.getPlayers().getPlayer1();
+            case 2: return serverMessage.getPlayers().getPlayer2();
+            case 3: return serverMessage.getPlayers().getPlayer3();
+            case 4: return serverMessage.getPlayers().getPlayer4();
+            case 5: return serverMessage.getPlayers().getPlayer5();
+            default: return serverMessage.getPlayers().getPlayer6();
+        }
+    }
+
+    public Me getMyPlayer(){
+        return myPlayer;
     }
 }
 
