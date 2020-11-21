@@ -9,11 +9,10 @@ public class ClientMessage {
     private ArrayList<String> responses = new ArrayList<>();
     private String action;
     private ServerMessage serverMessage;
-    private List<String> possibleMoves;
+    private ArrayList<String> possibleMoves = new ArrayList<>();
     private Me myPlayer;
 
     public ClientMessage(){
-        fillResponses();
     }
 
     public void fillResponses(){
@@ -26,9 +25,12 @@ public class ClientMessage {
 
     public String randomResponse(int[][] cells, Me myPlayer){
         randomAction = new Random();
-        getPossibleMoves(cells, myPlayer);
-        int index = randomAction.nextInt(responses.size());
-        return responses.get(index);
+        List<String> myPossibleMoves = getPossibleMoves(cells, myPlayer);
+        int index = randomAction.nextInt(myPossibleMoves.size());
+        if(myPossibleMoves.size() == 0){
+            return "change_nothing";
+        }
+        return myPossibleMoves.get(index);
     }
 
     public List<String> getPossibleMoves(int[][] cells, Me myPlayer){
@@ -36,40 +38,96 @@ public class ClientMessage {
         int meY = myPlayer.getY();
         String direction = myPlayer.getDirection();
         int speed = myPlayer.getSpeed();
-        boolean left;
-        boolean right;
-        boolean head;
+        boolean left = false;
+        boolean right= false;
+        boolean head = false;
 
         switch(direction){
             case "down":
-                head = cells[meX+1][meY]==0;
-                left = cells[meX][meY+1]==0;
-                right = cells[meX][meY-1]==0;
+                if(!(meX + 1 >= cells.length)) {
+                    head = cells[meX + 1][meY] == 0;
+                }else{
+                    head = false;
+                }
+                if(!(meY + 1 >= cells[0].length)) {
+                    left = cells[meX][meY + 1] == 0;
+                }else{
+                    left = false;
+                }
+                if(!(meY - 1 >= cells[0].length)) {
+                    right = cells[meX][meY - 1] == 0;
+                }else{
+                    right = false;
+                }
+
                 break;
             case "up":
-                head = cells[meX-1][meY]==0;
-                left = cells[meX][meY-1]==0;
-                right = cells[meX][meY+1]==0;
+                if(!(meX - 1 >= cells.length)) {
+                    head = cells[meX - 1][meY] == 0;
+                }else{
+                    head = false;
+                }
+                if(!(meY - 1 >= cells[0].length)) {
+                    left = cells[meX][meY - 1] == 0;
+                }else{
+                    left = false;
+                }
+                if(!(meY + 1 >= cells[0].length)) {
+                    right = cells[meX][meY + 1] == 0;
+                }else{
+                    right = false;
+                }
                 break;
             case "left":
-                head = cells[meX][meY-1]==0;
-                left = cells[meX+1][meY]==0;
-                right = cells[meX-1][meY]==0;
+                if(!(meY - 1 >= cells[0].length)) {
+                    head = cells[meX][meY-1] == 0;
+                }else{
+                    head = false;
+                }
+                if(!(meX + 1 >= cells.length)) {
+                    left = cells[meX + 1][meY] == 0;
+                }else{
+                    left = false;
+                }
+                if(!(meX - 1 >= cells[0].length)) {
+                    right = cells[meX - 1][meY] == 0;
+                }else{
+                    right = false;
+                }
                 break;
             case "right":
-                head = cells[meX][meY+1]==0;
-                left = cells[meX-1][meY]==0;
-                right = cells[meX+1][meY]==0;
+                if(!(meY + 1 >= cells.length)) {
+                    head = cells[meX][meY-1] == 0;
+                }else{
+                    head = false;
+                }
+                if(!(meX - 1 >= cells.length)) {
+                    left = cells[meX + 1][meY] == 0;
+                }else{
+                    left = false;
+                }
+                if(!(meX + 1 >= cells.length)) {
+                    right = cells[meX - 1][meY] == 0;
+                }else{
+                    right = false;
+                }
                 break;
-            default: head = false;
+            /*default:
+                head = false;
+                left = false;
+                right = false;*/
         }
+        possibleMoves.clear();
 
-        if(head == true){
-
+        if(head){
+            possibleMoves.add("change_nothing");
         }
-
-
-        possibleMoves.add("Test");
+        if(right){
+            possibleMoves.add("turn_right");
+        }
+        if(left){
+            possibleMoves.add("turn_left");
+        }
         return possibleMoves;
     }
 
