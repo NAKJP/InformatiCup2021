@@ -13,10 +13,10 @@ public class Websocket{
     private Session userSession;
     private GraphicOutput output;
     private MessageHandler messageHandler;
+    private ClientMessage clientMessage = new ClientMessage();
     private Log logger = new Log();
-    private ClientMessage clientMessage ;
     private ServerMessage serverMessage ;
-    private String time = new SimpleDateFormat("dd.MM.yyyy.HH.mm.ss").format(new java.util.Date());
+    private String time = new SimpleDateFormat("dd.MM.yyyy HH.mm.ss").format(new java.util.Date());
 
     public Websocket (URI endpointURI){
         try{
@@ -35,7 +35,7 @@ public class Websocket{
 
     @OnOpen
     public void onOpen(Session userSession) {
-        logger.connectionLog(this.time + ": opening websocket");
+        logger.connectionLog("connected websocket");
         this.userSession = userSession;
         output = new GraphicOutput();
         output.initializeOutput();
@@ -43,7 +43,7 @@ public class Websocket{
 
     @OnClose
     public void onClose(Session userSession, CloseReason reason) {
-        logger.connectionLog(this.time + ": closing websocket");
+        logger.connectionLog("closing websocket");
         try {
             this.userSession = userSession;
             this.userSession.close();
@@ -58,21 +58,22 @@ public class Websocket{
         if (this.messageHandler != null) {
             serverMessage = new Gson().fromJson(message, ServerMessage.class);
 
-            System.out.println("Player 1 is " + serverMessage.getPlayers().getPlayer1().getActive());
+            logger.writeLog(message);
+            output.outputGame(message);
             System.out.println("Your Playernumber: "+ serverMessage.getYou());
 
-            logger.writeLog(message);
-            sendMessage("{\"action\": \"change_nothing\"}");
+            sendMessage();
             if(!output.isActive(message)){
                 onClose(userSession, new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "Player died"));
             }
-            this.messageHandler.handleMessage(message);
-            output.outputGame(message);
         }
     }
 
-    public void sendMessage(String clientMessage) {
-        this.userSession.getAsyncRemote().sendObject(clientMessage);
+    public void sendMessage() {
+        String response = clientMessage.randomResponse();
+        System.out.println(response);
+        String clientMsg = "{\"action\": \""+response+"\"}";
+        this.userSession.getAsyncRemote().sendObject(clientMsg);
     }
 }
 
