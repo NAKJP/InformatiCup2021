@@ -1,5 +1,7 @@
 package com.company;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ServerMessage {
     private int width;
     private int height;
@@ -9,13 +11,18 @@ public class ServerMessage {
     private boolean running;
     private String deadline;
 
-    class Players{
-        // TODO Fix Mapping
+    public class Players{
+        @SerializedName("1")
         private Player player1;
+        @SerializedName("2")
         private Player player2;
+        @SerializedName("3")
         private Player player3;
+        @SerializedName("4")
         private Player player4;
+        @SerializedName("5")
         private Player player5;
+        @SerializedName("6")
         private Player player6;
         public Players(){}
 
@@ -94,10 +101,8 @@ public class ServerMessage {
                 return speed;
             }
             public boolean getActive(){
-                System.out.println(this.x + " " + this.direction);
                 return active;
             }
-
         }
     }
 
@@ -113,7 +118,7 @@ public class ServerMessage {
     public void setPlayers(Players players){
         this.players = players;
     }
-    public void setInt(int you){
+    public void setYou(int you){
         this.you = you;
     }
     public void setRunning(boolean running){
@@ -134,7 +139,7 @@ public class ServerMessage {
     public Players getPlayers(){
         return players;
     }
-    public int getInt(){
+    public int getYou(){
         return you;
     }
     public boolean getRunning(){

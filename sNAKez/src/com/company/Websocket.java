@@ -55,8 +55,12 @@ public class Websocket{
 
     @OnMessage
     public void onMessage(String message) {
-        serverMessage = new Gson().fromJson(message, ServerMessage.class);
         if (this.messageHandler != null) {
+            serverMessage = new Gson().fromJson(message, ServerMessage.class);
+
+            System.out.println("Player 1 is " + serverMessage.getPlayers().getPlayer1().getActive());
+            System.out.println("Your Playernumber: "+ serverMessage.getYou());
+
             logger.writeLog(message);
             sendMessage("{\"action\": \"change_nothing\"}");
             if(!output.isActive(message)){
