@@ -24,12 +24,16 @@ public class ClientMessage {
     }
 
     public String randomResponse(int[][] cells, Me myPlayer){
+        long start = System.currentTimeMillis();
         randomAction = new Random();
         List<String> myPossibleMoves = getPossibleMoves(cells, myPlayer);
         int index = randomAction.nextInt(myPossibleMoves.size());
+        long end =  System.currentTimeMillis();
+        System.out.println(end - start);
         if(myPossibleMoves.size() == 0){
             return "change_nothing";
         }
+
         return myPossibleMoves.get(index);
     }
 
@@ -45,17 +49,17 @@ public class ClientMessage {
         switch(direction){
             case "down":
                 if(!(meX + 1 >= cells.length)) {
-                    head = cells[meX + 1][meY] == 0;
+                    head = cells[meX + 1][meY] == 0 && cells[meX + 2][meY] == 0;
                 }else{
                     head = false;
                 }
                 if(!(meY + 1 >= cells[0].length)) {
-                    left = cells[meX][meY + 1] == 0;
+                    left = cells[meX][meY + 1] == 0 && cells[meX][meY + 2] == 0;
                 }else{
                     left = false;
                 }
                 if(!(meY - 1 >= cells[0].length)) {
-                    right = cells[meX][meY - 1] == 0;
+                    right = cells[meX][meY - 1] == 0 && cells[meX][meY - 2] == 0;
                 }else{
                     right = false;
                 }
@@ -63,51 +67,51 @@ public class ClientMessage {
                 break;
             case "up":
                 if(!(meX - 1 >= cells.length)) {
-                    head = cells[meX - 1][meY] == 0;
+                    head = cells[meX - 1][meY] == 0 && cells[meX - 2][meY] == 0;
                 }else{
                     head = false;
                 }
                 if(!(meY - 1 >= cells[0].length)) {
-                    left = cells[meX][meY - 1] == 0;
+                    left = cells[meX][meY - 1] == 0 && cells[meX][meY - 2] == 0;
                 }else{
                     left = false;
                 }
                 if(!(meY + 1 >= cells[0].length)) {
-                    right = cells[meX][meY + 1] == 0;
+                    right = cells[meX][meY + 1] == 0 && cells[meX][meY + 2] == 0;
                 }else{
                     right = false;
                 }
                 break;
             case "left":
                 if(!(meY - 1 >= cells[0].length)) {
-                    head = cells[meX][meY-1] == 0;
+                    head = cells[meX][meY - 1] == 0 && cells[meX][meY - 2] == 0;
                 }else{
                     head = false;
                 }
                 if(!(meX + 1 >= cells.length)) {
-                    left = cells[meX + 1][meY] == 0;
+                    left = cells[meX + 1][meY] == 0 && cells[meX + 2][meY] == 0;
                 }else{
                     left = false;
                 }
                 if(!(meX - 1 >= cells[0].length)) {
-                    right = cells[meX - 1][meY] == 0;
+                    right = cells[meX - 1][meY] == 0 && cells[meX - 2][meY] == 0;
                 }else{
                     right = false;
                 }
                 break;
             case "right":
                 if(!(meY + 1 >= cells.length)) {
-                    head = cells[meX][meY-1] == 0;
+                    head = cells[meX][meY-1] == 0 && cells[meX][meY-2] == 0;
                 }else{
                     head = false;
                 }
                 if(!(meX - 1 >= cells.length)) {
-                    left = cells[meX + 1][meY] == 0;
+                    left = cells[meX + 1][meY] == 0 && cells[meX + 2][meY] == 0;
                 }else{
                     left = false;
                 }
                 if(!(meX + 1 >= cells.length)) {
-                    right = cells[meX - 1][meY] == 0;
+                    right = cells[meX - 1][meY] == 0 && cells[meX - 2][meY] == 0;
                 }else{
                     right = false;
                 }
