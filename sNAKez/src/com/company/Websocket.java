@@ -43,12 +43,12 @@ public class Websocket{
     }
 
     @OnClose
-    public void onClose(Session userSession, CloseReason reason) {
+    public void onClose(Session userSession) {
         try {
             logger.connectionLog("closing websocket");
             this.userSession = userSession;
             this.userSession.close();
-            Runtime.getRuntime().exit(1000);
+            Runtime.getRuntime().exit(1);
 
         }
         catch (IOException e){

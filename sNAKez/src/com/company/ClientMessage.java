@@ -33,7 +33,6 @@ public class ClientMessage {
         if(myPossibleMoves.size() == 0){
             return "change_nothing";
         }
-
         return myPossibleMoves.get(index);
     }
 
@@ -116,10 +115,6 @@ public class ClientMessage {
                     right = false;
                 }
                 break;
-            /*default:
-                head = false;
-                left = false;
-                right = false;*/
         }
         possibleMoves.clear();
 
