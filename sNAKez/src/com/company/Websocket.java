@@ -48,9 +48,11 @@ public class Websocket{
             logger.connectionLog("closing websocket");
             this.userSession = userSession;
             this.userSession.close();
+            Runtime.getRuntime().exit(1000);
+
         }
         catch (IOException e){
-            logger.connectionLog("FAILED");
+            logger.connectionLog("Closing FAILED");
             throw new RuntimeException(e);
         }
     }
@@ -71,10 +73,6 @@ public class Websocket{
             else {
                 logger.connectionLog("You already died");
             }
-            /*if(!output.isActive(message)){
-                logger.connectionLog("Player died");
-                onClose(userSession, new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "Player died"));
-            }*/
         }
     }
 
