@@ -1,9 +1,7 @@
 FROM openjdk:11-jre-slim
 
-EXPOSE 8080
-
 WORKDIR /usr/app
 
-COPY ./build/libs/*.jar ./microservice.jar
+COPY out/artifacts/Informaticup2021_jar/Informaticup2021.jar ./informati2021.jar
 
-ENTRYPOINT exec java $JAVA_OPTS -jar ./microservice.jar
+ENTRYPOINT exec java -jar ./informati2021.jar

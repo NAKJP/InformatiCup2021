@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Informaticup2021:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Informaticup2021_jar</output-path>
+    <root id="archive" name="Informaticup2021.jar">
+      <element id="module-output" name="Informaticup2021" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/gson-2.8.6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/tyrus-standalone-client-1.9.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/javax.websocket-api-1.1.jar" path-in-jar="/" />
+      <element id="library" level="project" name="tyrus-standalone-client-1.9-javadoc" />
+    </root>
+  </artifact>
+</component>
