@@ -24,12 +24,9 @@ public class ClientMessage {
     }
 
     public String randomResponse(int[][] cells, Me myPlayer){
-        long start = System.currentTimeMillis();
         randomAction = new Random();
         List<String> myPossibleMoves = getPossibleMoves(cells, myPlayer);
         int index = randomAction.nextInt(myPossibleMoves.size());
-        long end =  System.currentTimeMillis();
-        System.out.println(end - start);
         if(myPossibleMoves.size() == 0){
             return "change_nothing";
         }
