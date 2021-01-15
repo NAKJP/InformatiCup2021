@@ -17,6 +17,7 @@ wird der jeweilige Spielzug in eine Liste möglicher Spielzüge hinzugefügt. Es
 
 ### Build docker <a name="build-docker"></a>
 `docker build -snakez .`
+`docker build https://github.com/NAKJP/InformatiCup2021.git#:sNAKez`
 
 ### Run docker <a name="run-docker"></a>
 `docker run -e URL="wss://msoll.de/spe_ed" -e KEY="4TB4RVHI6UZ4NQRIV4IDZYUERICKBWQMRMLSD5NVY756YYM5S3ZMJN2P" -e TIME_URL "https://msoll.de/spe_ed_time" snakez`
