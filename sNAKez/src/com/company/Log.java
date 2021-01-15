@@ -15,7 +15,7 @@ public class Log {
 
     public Log(){
         try{
-            gameFileHandler = new FileHandler("D:\\Programming\\Git\\InformatiCup2020\\sNAKez\\logging\\game.log");
+            gameFileHandler = new FileHandler("game.log");
             gameLogger.addHandler(gameFileHandler);
             SimpleFormatter formatter = new SimpleFormatter();
             gameFileHandler.setFormatter(formatter);
@@ -27,7 +27,7 @@ public class Log {
             e.printStackTrace();
         }
         try{
-            connectionFileHandler = new FileHandler("D:\\Programming\\Git\\InformatiCup2020\\sNAKez\\logging\\connection"+ timeStamp +".log");
+            connectionFileHandler = new FileHandler(timeStamp +".log");
             conectionLogger.addHandler(connectionFileHandler);
             SimpleFormatter formatter = new SimpleFormatter();
             connectionFileHandler.setFormatter(formatter);
