@@ -14,34 +14,44 @@ public class Me {
         this.speed = me.getSpeed();
         this.active = me.getActive();
     }
-    public void setX(int x){
+
+    public void setX(int x) {
         this.x = x;
     }
-    public void setY(int y){
+
+    public void setY(int y) {
         this.y = y;
     }
-    public void setDirection(String direction){
+
+    public void setDirection(String direction) {
         this.direction = direction;
     }
-    public void setSpeed(int speed){
+
+    public void setSpeed(int speed) {
         this.speed = speed;
     }
-    public void setActive(boolean active){
+
+    public void setActive(boolean active) {
         this.active = active;
     }
-    public int getX(){
+
+    public int getX() {
         return x;
     }
-    public int getY(){
+
+    public int getY() {
         return y;
     }
-    public String getDirection(){
+
+    public String getDirection() {
         return direction;
     }
-    public int getSpeed(){
+
+    public int getSpeed() {
         return speed;
     }
-    public boolean getActive(){
+
+    public boolean getActive() {
         return active;
     }
 }

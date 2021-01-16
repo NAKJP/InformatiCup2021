@@ -46,17 +46,19 @@ public class ClientMessage {
 
         switch(direction){
             case "down":
-                if(!(meY + 1 >= cells.length)) {
+                // = Kann weg
+                if(!(meY + 1 > cells.length)) {
                     head = cells[meY + 1][meX] == 0;
                 }else{
                     head = false;
                 }
-                if(!(meX + 1 >= cells[0].length)) {
+                if(!(meX + 1 > cells[0].length)) {
                     left = cells[meY][meX + 1] == 0;
                 }else{
                     left = false;
                 }
-                if(!(meX - 1 >= cells[0].length)) {
+                // nicht links aus dem Feld raus
+                if(!(meX - 1 >= 0)) {
                     right = cells[meY][meX - 1] == 0;
                 }else{
                     right = false;
@@ -64,51 +66,54 @@ public class ClientMessage {
 
                 break;
             case "up":
-                if(!(meY - 1 < 0)) {
+                // =
+                if(!(meY - 1 <= 0)) {
                     head = cells[meY - 1][meX] == 0;
                 }else{
                     head = false;
                 }
-                if(!(meX - 1 >= cells[0].length)) {
+                // 0
+                if(!(meX - 1 <= 0)) {
                     left = cells[meY][meX - 1] == 0;
                 }else{
                     left = false;
                 }
-                if(!(meX + 1 >= cells[0].length)) {
+                // Hier dürfte man eigentlich das = weglassen können
+                if(!(meX + 1 > cells[0].length)) {
                     right = cells[meY][meX + 1] == 0;
                 }else{
                     right = false;
                 }
                 break;
             case "left":
-                if(!(meX - 1 >= cells[0].length)) {
+                if(!(meX - 1 <= 0)) {
                     head = cells[meY][meX - 1] == 0;
                 }else{
                     head = false;
                 }
-                if(!(meY + 1 >= cells.length)) {
+                if(!(meY + 1 > cells.length)) {
                     left = cells[meY + 1][meX] == 0;
                 }else{
                     left = false;
                 }
-                if(!(meY - 1 < 0)) {
+                if(!(meY - 1 <= 0)) {
                     right = cells[meY - 1][meX] == 0;
                 }else{
                     right = false;
                 }
                 break;
             case "right":
-                if(!(meX + 1 >= cells.length)) {
+                if(!(meX + 1 > cells[0].length)) {
                     head = cells[meY][meX+1] == 0;
                 }else{
                     head = false;
                 }
-                if(!(meY - 1 < 0)) {
+                if(!(meY - 1 <= 0)) {
                     left = cells[meY - 1][meX] == 0;
                 }else{
                     left = false;
                 }
-                if(!(meY + 1 >= cells.length)) {
+                if(!(meY + 1 > cells.length)) {
                     right = cells[meY + 1][meX] == 0;
                 }else{
                     right = false;
