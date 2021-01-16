@@ -13,8 +13,7 @@ public class ClientMessage {
     private Me myPlayer;
     private Log logger = new Log();
 
-    public ClientMessage(){
-    }
+    public ClientMessage(){ }
 
     public void fillResponses(){
         responses.add("change_nothing");

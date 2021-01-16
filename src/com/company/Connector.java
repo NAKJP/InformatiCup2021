@@ -23,6 +23,8 @@ public class Connector {
             System.err.println("InterruptedException exception: " + ex.getMessage());
         }catch (URISyntaxException ex) {
             System.err.println("URISyntaxException exception: " + ex.getMessage());
+        }catch (RuntimeException ex) {
+            System.err.println("Your Player is already in a game. - " + ex.getMessage());
         }
     }
 }
