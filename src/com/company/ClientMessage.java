@@ -11,6 +11,7 @@ public class ClientMessage {
     private ServerMessage serverMessage;
     private ArrayList<String> possibleMoves = new ArrayList<>();
     private Me myPlayer;
+    private Log logger = new Log();
 
     public ClientMessage(){
     }
@@ -41,6 +42,8 @@ public class ClientMessage {
         boolean left = false;
         boolean right= false;
         boolean head = false;
+
+        logger.connectionLog(myPlayer.getDirection());
 
         switch(direction){
             case "down":
@@ -124,6 +127,8 @@ public class ClientMessage {
         if(left){
             possibleMoves.add("turn_left");
         }
+
+        System.out.println("Possible Moves: " + possibleMoves);
         return possibleMoves;
     }
 

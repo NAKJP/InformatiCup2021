@@ -16,7 +16,9 @@ Ein Spielzug wird wie folgt ermittelt: Es wird geprüft, ob das Feld vor, links 
 wird der jeweilige Spielzug in eine Liste möglicher Spielzüge hinzugefügt. Es wird ein zufälliger Spielzug aus den möglichen Spielzügen (pro Runde) an den Server zurückgeschickt.
 
 ### Build docker <a name="build-docker"></a>
-`docker build -t snakez https://github.com/NAKJP/InformatiCup2021.git#:sNAKez`
+1. Download .zip vom GitHub Repo (https://github.com/NAKJP/InformatiCup2021)
+2. Entpacke .zip
+3. `docker build -t snakez .<Pfad in dem entpackte zip liegt z.B. /downloads/<Name der entpackten zip>>`
 
 ### Run docker <a name="run-docker"></a>
 `docker run -e URL="wss://msoll.de/spe_ed" -e KEY="4TB4RVHI6UZ4NQRIV4IDZYUERICKBWQMRMLSD5NVY756YYM5S3ZMJN2P" -e TIME_URL="https://msoll.de/spe_ed_time" snakez`

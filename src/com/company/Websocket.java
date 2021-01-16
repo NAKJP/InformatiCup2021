@@ -48,7 +48,7 @@ public class Websocket{
             logger.connectionLog("closing websocket");
             this.userSession = userSession;
             this.userSession.close();
-            Runtime.getRuntime().exit(1);
+            //Runtime.getRuntime().exit(1);
 
         }
         catch (IOException e){
