@@ -96,7 +96,7 @@ public class ClientMessage {
                 }else{
                     left = false;
                 }
-                if(!(meY - 1 <= 0)) {
+                if(!(meY - 1 < 0)) {
                     right = cells[meY - 1][meX] == 0;
                 }else{
                     right = false;
@@ -108,7 +108,7 @@ public class ClientMessage {
                 }else{
                     head = false;
                 }
-                if(!(meY - 1 <= 0)) {
+                if(!(meY - 1 < 0)) {
                     left = cells[meY - 1][meX] == 0;
                 }else{
                     left = false;
