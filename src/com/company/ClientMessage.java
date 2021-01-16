@@ -58,7 +58,7 @@ public class ClientMessage {
                     left = false;
                 }
                 // nicht links aus dem Feld raus
-                if(!(meX - 1 >= 0)) {
+                if(!(meX - 1 < 0)) {
                     right = cells[meY][meX - 1] == 0;
                 }else{
                     right = false;
@@ -67,13 +67,13 @@ public class ClientMessage {
                 break;
             case "up":
                 // =
-                if(!(meY - 1 <= 0)) {
+                if(!(meY - 1 < 0)) {
                     head = cells[meY - 1][meX] == 0;
                 }else{
                     head = false;
                 }
                 // 0
-                if(!(meX - 1 <= 0)) {
+                if(!(meX - 1 < 0)) {
                     left = cells[meY][meX - 1] == 0;
                 }else{
                     left = false;
@@ -86,7 +86,7 @@ public class ClientMessage {
                 }
                 break;
             case "left":
-                if(!(meX - 1 <= 0)) {
+                if(!(meX - 1 < 0)) {
                     head = cells[meY][meX - 1] == 0;
                 }else{
                     head = false;
