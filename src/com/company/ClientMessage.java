@@ -19,7 +19,7 @@ public class ClientMessage {
         responses.add("change_nothing");
         responses.add("turn_left");
         responses.add("turn_right");
-        //responses.add("slow_down");
+        responses.add("slow_down");
         //responses.add("speed_up");
     }
 
@@ -122,16 +122,19 @@ public class ClientMessage {
         }
         possibleMoves.clear();
 
-        if(head){
-            possibleMoves.add("change_nothing");
+        if (speed > 1) {
+            possibleMoves.add("slow_down");
+        }else {
+            if (head) {
+                possibleMoves.add("change_nothing");
+            }
+            if (right) {
+                possibleMoves.add("turn_right");
+            }
+            if (left) {
+                possibleMoves.add("turn_left");
+            }
         }
-        if(right){
-            possibleMoves.add("turn_right");
-        }
-        if(left){
-            possibleMoves.add("turn_left");
-        }
-
         System.out.println("Possible Moves: " + possibleMoves);
         return possibleMoves;
     }
