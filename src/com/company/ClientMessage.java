@@ -46,7 +46,7 @@ public class ClientMessage {
 
         switch(direction){
             case "down":
-                // = Kann weg
+
                 if(!(meY + 1 >= cells.length)) {
                     head = cells[meY + 1][meX] == 0;
                 }else{
@@ -66,19 +66,19 @@ public class ClientMessage {
 
                 break;
             case "up":
-                // =
+
                 if(!(meY - 1 < 0)) {
                     head = cells[meY - 1][meX] == 0;
                 }else{
                     head = false;
                 }
-                // 0
+
                 if(!(meX - 1 < 0)) {
                     left = cells[meY][meX - 1] == 0;
                 }else{
                     left = false;
                 }
-                // Hier dürfte man eigentlich das = weglassen können
+
                 if(!(meX + 1 >= cells[0].length)) {
                     right = cells[meY][meX + 1] == 0;
                 }else{
