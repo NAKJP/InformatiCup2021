@@ -126,7 +126,7 @@ public class ClientMessage {
             possibleMoves.add("slow_down");
         }else {
             if (head) {
-                for(int i = 1; i >= 15; i++) {
+                for(int i = 1; i <= 100; i++) {
                     possibleMoves.add("change_nothing");
                 }
             }
