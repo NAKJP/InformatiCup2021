@@ -11,7 +11,7 @@ import javax.websocket.*;
 public class Websocket{
 
     private Session userSession;
-    private GraphicOutput output;
+    //private GraphicOutput output;
     private MessageHandler messageHandler;
     private ClientMessage clientMessage = new ClientMessage();
     private Log logger = new Log();
@@ -38,8 +38,8 @@ public class Websocket{
     public void onOpen(Session userSession) {
         logger.connectionLog("connected websocket");
         this.userSession = userSession;
-        output = new GraphicOutput();
-        output.initializeOutput();
+        //output = new GraphicOutput();
+        //output.initializeOutput();
     }
 
     @OnClose
@@ -64,7 +64,7 @@ public class Websocket{
             myPlayer = new Me(getMe());
 
             logger.writeLog(message);
-            output.outputGame(message);
+            //output.outputGame(message);
             System.out.println("Your Playernumber: "+ serverMessage.getYou());
 
             if(getMe().getActive()){
