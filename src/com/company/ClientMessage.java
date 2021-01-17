@@ -19,7 +19,7 @@ public class ClientMessage {
         responses.add("change_nothing");
         responses.add("turn_left");
         responses.add("turn_right");
-        responses.add("slow_down");
+        //responses.add("slow_down");
         //responses.add("speed_up");
     }
 
@@ -122,9 +122,7 @@ public class ClientMessage {
         }
         possibleMoves.clear();
 
-        if (speed > 1) {
-            possibleMoves.add("slow_down");
-        }else {
+
             if (head) {
                 for(int i = 1; i <= 100; i++) {
                     possibleMoves.add("change_nothing");
@@ -136,7 +134,7 @@ public class ClientMessage {
             if (left) {
                 possibleMoves.add("turn_left");
             }
-        }
+
         System.out.println("Possible Moves: " + possibleMoves);
         return possibleMoves;
     }
