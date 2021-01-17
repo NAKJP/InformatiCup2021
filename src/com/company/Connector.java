@@ -5,11 +5,11 @@ import java.net.URISyntaxException;
 
 public class Connector {
 
-    private final String url = "wss://msoll.de/spe_ed?key=";
-    private final String apiKey = "4TB4RVHI6UZ4NQRIV4IDZYUERICKBWQMRMLSD5NVY756YYM5S3ZMJN2P";
-    //private final String apiKey = System.getenv("KEY");
-    //private final String url = System.getenv("URL");
-    //private final String time_url = System.getenv("TIME_URL");
+    //private final String url = "wss://msoll.de/spe_ed?key=";
+    //private final String apiKey = "4TB4RVHI6UZ4NQRIV4IDZYUERICKBWQMRMLSD5NVY756YYM5S3ZMJN2P";
+    private final String apiKey = System.getenv("KEY");
+    private final String url = System.getenv("URL");
+    private final String time_url = System.getenv("TIME_URL");
 
     public void connect(){
         try {
