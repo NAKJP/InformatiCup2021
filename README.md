@@ -21,10 +21,7 @@ wird der jeweilige Spielzug in eine Liste möglicher Spielzüge hinzugefügt. Es
 3. `docker build -t snakez .<Pfad in dem entpackte zip liegt z.B. /downloads/<Name der entpackten zip>>`
 
 ### Run docker <a name="run-docker"></a>
-`docker run -e URL="wss://msoll.de/spe_ed" -e KEY="4TB4RVHI6UZ4NQRIV4IDZYUERICKBWQMRMLSD5NVY756YYM5S3ZMJN2P" -e TIME_URL="https://msoll.de/spe_ed_time" snakez`
+`docker run -e URL="wss://msoll.de/spe_ed" -e KEY="<TEAM-KEY>" -e TIME_URL="https://msoll.de/spe_ed_time" snakez`
 
 ### TODO <a name="TODO"></a>
-1. Schriftliche Ausarbeitung
-2. docker build mit Verweis auf GitHub
-3. Pruefung der Eingabe
-4. Fehlerbehandlung?
+1. Fehlerbehandlung?
